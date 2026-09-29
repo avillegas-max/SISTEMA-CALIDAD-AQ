@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portal Calidad</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- BARRA LATERAL -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">Q</div>
+            <div>
+                <strong>PORTAL</strong>
+                <span>CALIDAD</span>
+            </div>
+        </div>
+
+        <div class="user-box">
+            <div class="avatar">A</div>
+
+            <div>
+                <strong>Anali</strong>
+                <small>Administrador</small>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="menu active" onclick="mostrarPagina('inicio')">
+                🏠
+                <span>Inicio</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('tareas')">
+                📋
+                <span>Mis tareas</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('proyectos')">
+                📁
+                <span>Todos los proyectos</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('nuevo')">
+                ➕
+                <span>Nuevo proyecto</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('dossier')">
+                📑
+                <span>Dossier</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('terreno')">
+                📍
+                <span>Visitas a terreno</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('reuniones')">
+                📅
+                <span>Reuniones</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('organigrama')">
+                👥
+                <span>Organigrama</span>
+            </button>
+
+            <button class="menu" onclick="mostrarPagina('usuarios')">
+                👤
+                <span>Usuarios</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <span>Sistema QA/QC</span>
+            <small>Versión 1.0</small>
+        </div>
+
+    </aside>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h1 id="tituloPagina">Panel de Calidad</h1>
+                <p id="subtituloPagina">
+                    Control general de proyectos QA/QC
+                </p>
+            </div>
+
+            <div class="top-actions">
+
+                <select id="filtroProyecto" onchange="filtrarProyecto()">
+                    <option value="todos">Todos los proyectos</option>
+                    <option value="ELECTROIMAN">ELECTROIMAN</option>
+                    <option value="CEMS">CEMS</option>
+                    <option value="PAC 1">PAC 1</option>
+                    <option value="PAC 2">PAC 2</option>
+                </select>
+
+                <div class="notification">
+                    🔔
+                    <span>3</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENEDOR DE PÁGINAS -->
+
+        <section id="contenido">
+
+
+            <!-- ================= INICIO ================= -->
+
+            <div id="pagina-inicio" class="pagina">
+
+                <div class="welcome">
+
+                    <div>
+                        <span class="eyebrow">
+                            SISTEMA DE ASEGURAMIENTO Y CONTROL DE CALIDAD
+                        </span>
+
+                        <h2>Buenos días, Anali 👋</h2>
+
+                        <p>
+                            Aquí puedes revisar el estado general de los
+                            proyectos y la documentación de calidad.
+                        </p>
+                    </div>
+
+                    <button class="primary-btn"
+                            onclick="mostrarPagina('nuevo')">
+                        + Nuevo proyecto
+                    </button>
+
+                </div>
+
+
+                <!-- INDICADORES -->
+
+                <div class="kpi-grid">
+
+                    <div class="kpi">
+                        <span class="kpi-icon blue">📁</span>
+
+                        <div>
+                            <small>Proyectos activos</small>
+                            <strong>4</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="kpi">
+                        <span class="kpi-icon green">✓</span>
+
+                        <div>
+                            <small>Avance calidad</small>
+                            <strong>49%</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="kpi">
+                        <span class="kpi-icon orange">📑</span>
+
+                        <div>
+                            <small>Dossier</small>
+                            <strong>42%</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="kpi">
+                        <span class="kpi-icon red">!</span>
+
+                        <div>
+                            <small>Tareas pendientes</small>
+                            <strong>7</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- PROYECTOS -->
+
+                <div class="section-title">
+
+                    <div>
+                        <h3>Estado de proyectos</h3>
+                        <p>Avance general del área de calidad</p>
+                    </div>
+
+                    <button class="link-btn"
+                            onclick="mostrarPagina('proyectos')">
+                        Ver todos →
+                    </button>
+
+                </div>
+
+
+                <div id="proyectosInicio" class="project-grid"></div>
+
+            </div>
+
+
+
+            <!-- ================= TAREAS ================= -->
+
+            <div id="pagina-tareas" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+                        <span class="eyebrow">GESTIÓN INTERNA</span>
+                        <h2>Mis tareas</h2>
+                        <p>
+                            Actividades asignadas por el Jefe de Calidad.
+                        </p>
+                    </div>
+
+                    <button class="primary-btn">
+                        + Nueva tarea
+                    </button>
+
+                </div>
+
+
+                <div class="task-list" id="listaTareas"></div>
+
+            </div>
+
+
+
+            <!-- ================= PROYECTOS ================= -->
+
+            <div id="pagina-proyectos" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+                        <span class="eyebrow">CONTROL</span>
+                        <h2>Todos los proyectos</h2>
+                        <p>
+                            Estado de calidad y documentación.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="table-card">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Proyecto</th>
+                                <th>Ubicación</th>
+                                <th>Calidad</th>
+                                <th>Dossier</th>
+                                <th>Estado</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="tablaProyectos"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= NUEVO PROYECTO ================= -->
+
+            <div id="pagina-nuevo" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+                        <span class="eyebrow">ADMINISTRACIÓN</span>
+
+                        <h2>Nuevo proyecto</h2>
+
+                        <p>
+                            Crear proyecto y asociar protocolos y registros.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-card">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Nombre del proyecto</label>
+
+                            <input
+                                id="nombreProyecto"
+                                placeholder="Ej: ELECTROIMAN"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Ubicación</label>
+
+                            <input
+                                id="ubicacionProyecto"
+                                placeholder="Ej: Alto Norte"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Cliente</label>
+
+                            <input
+                                id="clienteProyecto"
+                                placeholder="Cliente"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Responsable Calidad</label>
+
+                            <select id="responsableProyecto">
+
+                                <option>Felipe Gajardo</option>
+                                <option>Rodrigo</option>
+                                <option>Anali</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <h3>Protocolos</h3>
+
+                    <div id="protocolosNuevo">
+
+                        <div class="protocol-row">
+
+                            <input
+                                placeholder="Nombre del protocolo"
+                            >
+
+                            <input
+                                placeholder="Código"
+                            >
+
+                            <input
+                                type="number"
+                                placeholder="N° registros"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="secondary-btn"
+                        onclick="agregarProtocolo()">
+
+                        + Agregar protocolo
+
+                    </button>
+
+
+                    <div class="form-actions">
+
+                        <button class="secondary-btn">
+                            Cancelar
+                        </button>
+
+                        <button
+                            class="primary-btn"
+                            onclick="crearProyecto()">
+
+                            Crear proyecto
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= DOSSIER ================= -->
+
+            <div id="pagina-dossier" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            DOCUMENTACIÓN
+                        </span>
+
+                        <h2>Dossier de Calidad</h2>
+
+                        <p>
+                            Control del avance documental de cada proyecto.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dossier-grid" id="listaDossier"></div>
+
+            </div>
+
+
+
+            <!-- ================= TERRENO ================= -->
+
+            <div id="pagina-terreno" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            TERRENO
+                        </span>
+
+                        <h2>Visitas a terreno</h2>
+
+                        <p>
+                            Registro de visitas realizadas por Calidad.
+                        </p>
+
+                    </div>
+
+                    <button class="primary-btn">
+                        + Registrar visita
+                    </button>
+
+                </div>
+
+
+                <div class="table-card">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Proyecto</th>
+                                <th>Motivo</th>
+                                <th>Ubicación</th>
+                                <th>Fecha</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>ELECTROIMAN</td>
+                                <td>Inspección soldadura</td>
+                                <td>Área PAC 1</td>
+                                <td>28-09-2026</td>
+                            </tr>
+
+                            <tr>
+                                <td>CEMS</td>
+                                <td>Levantamiento</td>
+                                <td>Planta</td>
+                                <td>27-09-2026</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= REUNIONES ================= -->
+
+            <div id="pagina-reuniones" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            COORDINACIÓN
+                        </span>
+
+                        <h2>Reuniones</h2>
+
+                        <p>
+                            Reuniones y coordinaciones del área.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="meeting-list">
+
+                    <div class="meeting">
+
+                        <div class="date-box">
+
+                            <strong>30</strong>
+                            <small>SEP</small>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Reunión semanal QA/QC
+                            </strong>
+
+                            <p>
+                                Revisión de avance de proyectos
+                            </p>
+
+                            <small>
+                                09:00 · Sala de reuniones
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="meeting">
+
+                        <div class="date-box">
+
+                            <strong>02</strong>
+                            <small>OCT</small>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Revisión Dossier
+                            </strong>
+
+                            <p>
+                                Estado documentación
+                            </p>
+
+                            <small>
+                                15:00 · Oficina Técnica
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= ORGANIGRAMA ================= -->
+
+            <div id="pagina-organigrama" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            ESTRUCTURA
+                        </span>
+
+                        <h2>Organigrama QA/QC</h2>
+
+                        <p>
+                            Sistema de Aseguramiento y Control de Calidad.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="org-chart">
+
+                    <div class="org-level">
+
+                        <div class="org-card jefe">
+
+                            <div class="org-icon">👔</div>
+
+                            <strong>Jefe de Área Calidad</strong>
+
+                            <span>
+                                Felipe Yampara
+                            </span>
+
+                            <small>
+                                Gestión general · reuniones · coordinación
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="org-line"></div>
+
+
+                    <div class="org-level">
+
+                        <div class="org-card">
+
+                            <div class="org-icon">📋</div>
+
+                            <strong>Ingeniero de Calidad</strong>
+
+                            <span>
+                                Felipe Gajardo
+                            </span>
+
+                            <small>
+                                Documentación · QA · PIE · PAC
+                            </small>
+
+                        </div>
+
+
+                        <div class="org-card">
+
+                            <div class="org-icon">🔎</div>
+
+                            <strong>Inspector de Calidad</strong>
+
+                            <span>
+                                Rodrigo
+                            </span>
+
+                            <small>
+                                Inspección terreno · registros
+                            </small>
+
+                        </div>
+
+
+                        <div class="org-card">
+
+                            <div class="org-icon">📐</div>
+
+                            <strong>Dibujante Inspector</strong>
+
+                            <span>
+                                Dibujante
+                            </span>
+
+                            <small>
+                                Planos · as-built · modelación
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= USUARIOS ================= -->
+
+            <div id="pagina-usuarios" class="pagina oculto">
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            ADMINISTRACIÓN
+                        </span>
+
+                        <h2>Usuarios</h2>
+
+                        <p>
+                            Gestión de usuarios y roles.
+                        </p>
+
+                    </div>
+
+                    <button class="primary-btn">
+                        + Nuevo usuario
+                    </button>
+
+                </div>
+
+
+                <div class="table-card">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Usuario</th>
+                                <th>Cargo</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Anali Villegas</td>
+
+                                <td>
+                                    Asistente Oficina Técnica
+                                </td>
+
+                                <td>
+                                    <span class="badge admin">
+                                        ADMIN
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="status active">
+                                        Activo
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Felipe Yampara</td>
+
+                                <td>
+                                    Jefe Área Calidad
+                                </td>
+
+                                <td>
+                                    <span class="badge admin">
+                                        ADMIN
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="status active">
+                                        Activo
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Felipe Gajardo</td>
+
+                                <td>
+                                    Ingeniero Calidad
+                                </td>
+
+                                <td>
+                                    <span class="badge quality">
+                                        CALIDAD
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="status active">
+                                        Activo
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Rodrigo</td>
+
+                                <td>
+                                    Inspector Calidad
+                                </td>
+
+                                <td>
+                                    <span class="badge quality">
+                                        CALIDAD
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="status active">
+                                        Activo
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>
